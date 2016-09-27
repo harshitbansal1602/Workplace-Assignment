@@ -8,7 +8,7 @@ $db_name  = "workplace";
 
 try{
 	$db_con = new PDO("mysql:host={$DB_host};dbname={$DB_name}",$DB_user,$DB_pass);
-	$DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$db_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch(PDOException $e){
 	//error in connection
@@ -80,6 +80,8 @@ Class head extends user {
 		$this->id = $userid;
 	}
 }
+
+$user = new user($db_con);
 
 
 
