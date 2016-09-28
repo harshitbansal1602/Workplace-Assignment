@@ -3,46 +3,13 @@ $(document).ready(function(){
 	$('.modal-trigger').leanModal();
 
 	$('#task_create').click(function() {
-		var task_sum = $('#task_sum').val();
-		var task_des = $('#task_des').val();
-		var subhead = [];
-
-		$('input[type="checkbox"]:selected').each(function(){
-			if( $this.val() !== 0 ){
-				//for excluding vlaue=0 option
-			}else{
-				subhead.push( $this.val() );
-			}
-		});
-
-		$.ajax({
-			type: "POST",
-			url: "add_task.php",
-			data: {userid : userid, task_sum: task_sum, task_des: task_des, subhead: subhead},
-			error(){
-				console.log('Ajax call(add_task) connection failed');
-				alert('Ajax call(add_task) connection failed');
-			},
-			success(data){
-				if( data === 'Failed'){
-					console.log('Ajax call(add_task) failed');
-					alert('Ajax call(add_task) failed');
-				}else{
-					console.log('Ajax call(add_task) successful');
-					alert('Ajax call(add_task) successful');
-				}
-			},
-			complete(){
-				console.log('Ajax call(add_task) completed');
-			}
-		});
-		$('.modal-close').click();
+		create_task();
 	});
 
-	import_tasks();
+	fetch_tasks();
 });
 
-function import_tasks(){
+function fetch_tasks(){
 	$.ajax({
 		type: "POST",
 		url: "fetch_task.php",
@@ -64,4 +31,40 @@ function import_tasks(){
 		}
 
 	});
+}
+
+function create_task(){
+	var task_sum = $('#task_sum').val();
+	var task_des = $('#task_des').val();
+	var subhead = new Array();
+
+	$('input[type="checkbox"]:checked').each(function(){
+		if( $(this).val() == 0 );			//for excluding vlaue=0 option
+		else
+			subhead.push( $(this).val() );
+	});
+
+	$.ajax({
+		type: "POST",
+		url: "add_task.php",
+		data: {userid : userid, task_sum: task_sum, task_des: task_des, subhead: subhead},
+		error(){
+			console.log('Ajax call(add_task) connection failed');
+			alert('Ajax call(add_task) connection failed');
+		},
+		success(data){
+			if( data === 'Failed'){
+				console.log('Ajax call(add_task) failed');
+				alert('Ajax call(add_task) failed');
+			}else{
+				console.log('Ajax call(add_task) successful');
+				alert('Ajax call(add_task) successful');
+				$('.modal-close').click();
+			}
+		},
+		complete(){
+			console.log('Ajax call(add_task) completed');
+		}
+	});
+
 }

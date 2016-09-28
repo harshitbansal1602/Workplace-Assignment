@@ -98,7 +98,10 @@ session_start();
 				<label for="task_des">Enter Task Description</label>
 				<textarea name="task_des" id="task_des" cols="20" rows="25" maxlength="500"></textarea>
 				<br>
-				<input type="checkbox" name="subhead" value="0">SELECT SUB-HEAD(S)
+				<p>
+					<input type="checkbox" id="test5" value="Red" />
+					<label for="test5">Red</label>
+				</p>
 			</form>
 		</div>
 		<div class="modal-footer">
@@ -112,7 +115,7 @@ session_start();
 	<script type="text/javascript" src="sources/materialize/js/materialize.min.js"></script>
 	<!--Jquery for this file-->
 	<script>
-		var userid = <?php echo $_SESSION['userid']; ?> ;	
+		var userid = <?php echo $_SESSION['userid']; ?> ;
 	</script>
 	<script type="text/javascript" src="jquery/home_head.js"></script>
 </body>
