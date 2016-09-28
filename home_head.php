@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 ?>
 <!DOCTYPE html>
@@ -6,7 +7,7 @@
 <head>
 
 	<!--Import Google Icon Font-->
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
 	<!--Import materialize.css-->
 	<link type="text/css" rel="stylesheet" href="sources/materialize/css/materialize.min.css"  media="screen,projection"/>
 
@@ -29,12 +30,14 @@
 			<div class="col s2">
 				<a class="modal-trigger" href="#modal1">Create Task</a>
 			</div>
-			<div class="col s2">Logout</div>
+			<div class="col s2">
+				<a href="logout.php">Logout</a>
+			</div>
 		</div>
 	</header>
 	<main>
 		<div class="container" >
-			<ul class="collapsible" id="uncom_task" data-collapsible="accordion">
+			<ul class="collapsible" id="task_list" data-collapsible="accordion">
 				<li>
 					<div class="collapsible-header">
 						<div class="row">
@@ -76,10 +79,6 @@
 				</li>
 
 			</ul>
-			<hr>
-			<ul class="collapsible" id="com_task" data-collapsible="accordion">
-				
-			</ul>
 		</div>
 	</main>
 	<footer style="text-align: center;">
@@ -94,12 +93,12 @@
 			<hr>
 			<form>
 				<label for="task">Enter Task Summary</label>
-				<textarea name="task" id="task" cols="10" rows="5" maxlength="50" required></textarea>
+				<textarea name="task" id="task_sum" cols="10" rows="5" maxlength="50" required></textarea>
 				<br>
 				<label for="task_des">Enter Task Description</label>
 				<textarea name="task_des" id="task_des" cols="20" rows="25" maxlength="500"></textarea>
 				<br>
-				<input type="checkbox" name="subhead" value="0"/>SELECT SUB-HEAD(S)
+				<input type="checkbox" name="subhead" value="0">SELECT SUB-HEAD(S)
 			</form>
 		</div>
 		<div class="modal-footer">
@@ -112,17 +111,9 @@
 	<script type="text/javascript" src="sources/jquery-3.0.0.min.js"></script>
 	<script type="text/javascript" src="sources/materialize/js/materialize.min.js"></script>
 	<!--Jquery for this file-->
-	<script type="text/javascript" src="jquery/"></script>
 	<script>
-		$('.modal-trigger').leanModal();
-		$('#task_create').click(function() {
-			var task = $('#task').val();
-			var task_des = $('#task_des').val();
-			//run ajax
-			//if ajax is success
-			alert(task);
-			$('.modal-close').click();
-		});
+		var userid = <?php echo $_SESSION['userid']; ?> ;	
 	</script>
+	<script type="text/javascript" src="jquery/home_head.js"></script>
 </body>
 </html>
