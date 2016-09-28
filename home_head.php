@@ -18,7 +18,8 @@
 	
 	<!--CSS for this file-->
 	<link rel="stylesheet" href="css/">
-	
+	<style>
+	</style>
 </head>
 <body>
 	<header>
@@ -37,8 +38,19 @@
 				<li>
 					<div class="collapsible-header">
 						<div class="row">
-							<div class="col s9">Make a workspace</div>
-							<div class="col s3">uncompleted</div>
+							<div class="col s7"><b>Task</b></div>
+							<div class="col s3"><b>Sub-Head(s) working on it</b></div>
+							<div class="col s2"><b>Status</b></div>
+						</div>
+					</div>
+				</li>
+				<!--prepend tasks here-->	
+				<li>
+					<div class="collapsible-header">
+						<div class="row">
+							<div class="col s7">Make a workspace</div>
+							<div class="col s3">Name of subhead(s)</div>
+							<div class="col s2">uncompleted</div>
 						</div>
 					</div>
 					<div class="collapsible-body">
@@ -47,6 +59,22 @@
 						</div>
 					</div>
 				</li>
+				
+				<li>
+					<div class="collapsible-header">
+						<div class="row">
+							<div class="col s7">Make a workspace</div>
+							<div class="col s3">Name of subhead(s)</div>
+							<div class="col s2">uncompleted</div>
+						</div>
+					</div>
+					<div class="collapsible-body">
+						<div class="row">
+							<div class="col s12">Discription of the uncompleted task</div>
+						</div>
+					</div>
+				</li>
+
 			</ul>
 			<hr>
 			<ul class="collapsible" id="com_task" data-collapsible="accordion">
@@ -62,12 +90,21 @@
 	<!-- Modal1 Structure -->
 	<div id="modal1" class="modal modal-fixed-footer">
 		<div class="modal-content">
-			<h4>Modal Header</h4>
-			<p>A bunch of text</p>
+			<h4>Create/Edit Task Here.</h4>
+			<hr>
+			<form>
+				<label for="task">Enter Task Summary</label>
+				<textarea name="task" id="task" cols="10" rows="5" maxlength="50" required></textarea>
+				<br>
+				<label for="task_des">Enter Task Description</label>
+				<textarea name="task_des" id="task_des" cols="20" rows="25" maxlength="500"></textarea>
+				<br>
+				<input type="checkbox" name="subhead" value="0"/>SELECT SUB-HEAD(S)
+			</form>
 		</div>
 		<div class="modal-footer">
-			<a href="#!" class="modal-action modal-close btn-flat ">Create</a>
-			<a href="#!" class="modal-action modal-close btn-flat ">Cancel</a>
+			<a href="#!" class="modal-action btn-flat" id="task_create">Create</a>
+			<a href="#!" class="modal-action modal-close btn-flat">Cancel</a>
 		</div>
 	</div>
 
@@ -78,6 +115,14 @@
 	<script type="text/javascript" src="jquery/"></script>
 	<script>
 		$('.modal-trigger').leanModal();
+		$('#task_create').click(function() {
+			var task = $('#task').val();
+			var task_des = $('#task_des').val();
+			//run ajax
+			//if ajax is success
+			alert(task);
+			$('.modal-close').click();
+		});
 	</script>
 </body>
 </html>

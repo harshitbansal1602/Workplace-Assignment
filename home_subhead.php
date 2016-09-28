@@ -30,12 +30,18 @@
 	</header>
 	<main>
 		<div class="container" >
+			<div class="row">
+				<div class="col s8"><b>Task</b></div>
+				<div class="col s2"><b>Supervising Head</b></div>
+				<div class="col s2"><b>Status</b></div>
+			</div>
 			<ul class="collapsible" id="uncom_task" data-collapsible="accordion">
 				<li>
 					<div class="collapsible-header">
 						<div class="row">
-							<div class="col s9">Make a workspace</div>
-							<div class="col s3">uncompleted</div>
+							<div class="col s8">Task</div>
+							<div class="col s2">Name of head</div>
+							<div class="col s2">status</div>
 						</div>
 					</div>
 					<div class="collapsible-body">
