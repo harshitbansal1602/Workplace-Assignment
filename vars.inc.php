@@ -4,10 +4,10 @@ session_start();
 $db_host = "localhost";
 $db_user = "root";
 $db_password = "";
-$db_name  = "workplace";
+$db_name  = "workspace";
 
 try{
-	$db_con = new PDO("mysql:host={$DB_host};dbname={$DB_name}",$DB_user,$DB_pass);
+	$db_con = new PDO("mysql:host={$db_host};dbname={$db_name}",$db_user,$db_password);
 	$db_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch(PDOException $e){
@@ -54,7 +54,7 @@ Class user {
 
 	public function getRole() {
 		if($this->isLoggedIn()){
-			$query = $this->db->prepare("SELECT * FROM `login` WHERE `id` = $_SESSION['userid']");
+			$query = $this->db->prepare("SELECT * FROM `login` WHERE `id` = ".$_SESSION['userid']."");
 			$query->excecute();
 			$row = $query->fetch(PDO::FETCH_ASSOC);
 			return $row['role'];
