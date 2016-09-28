@@ -24,10 +24,9 @@ Class user {
 	public function login($username,$userpass){
 		$query = $this->db->prepare("SELECT * FROM `login` WHERE `username` = :userid");
 		$query->bindparam(":userid",$username);
-		$query->bindparam(":pass",$userpass);
-		$query->excecute();
+		$query->execute();
 		$row = $query->fetch(PDO::FETCH_ASSOC);
-		if($row->rowCount >0){
+		if($query->rowCount() > 0){
 			if($row['password'] == $userpass){
 				$_SESSION['userid'] = $row['id'];
 				return True;
@@ -55,7 +54,7 @@ Class user {
 	public function getRole() {
 		if($this->isLoggedIn()){
 			$query = $this->db->prepare("SELECT * FROM `login` WHERE `id` = ".$_SESSION['userid']."");
-			$query->excecute();
+			$query->execute();
 			$row = $query->fetch(PDO::FETCH_ASSOC);
 			return $row['role'];
 		}
