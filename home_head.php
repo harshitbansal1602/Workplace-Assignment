@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$_SESSION['userid']=1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +28,7 @@ session_start();
 			<div class="col s6">Welcome</div>
 			<div class="col s2">All Tasks</div>
 			<div class="col s2">
-				<a class="modal-trigger" href="#modal1">Create Task</a>
+				<a class="modal-trigger" id="trigger_ct" href="#modal1">Create Task</a>
 			</div>
 			<div class="col s2">
 				<a href="logout.php">Logout</a>
@@ -41,43 +41,43 @@ session_start();
 				<li>
 					<div class="collapsible-header">
 						<div class="row">
-							<div class="col s7"><b>Task</b></div>
+							<div class="col s5"><b>Task</b></div>
 							<div class="col s3"><b>Sub-Head(s) working on it</b></div>
-							<div class="col s2"><b>Status</b></div>
+							<div class="col s2"><b>Last updated on</b></div>
+							<div class="col s2"><b>Completed On</b></div>
 						</div>
 					</div>
 				</li>
-				<!--prepend tasks here-->	
-				<li>
+				<!--insert tasks here-->
+				<li id="4">
 					<div class="collapsible-header">
 						<div class="row">
-							<div class="col s7">Make a workspace</div>
-							<div class="col s3">Name of subhead(s)</div>
-							<div class="col s2">uncompleted</div>
+							<div class="col s5">Make a workspace</div>
+							<div class="col s3">abc</div>
+							<div class="col s2">27/6/2016</div>
+							<div class="col s2">-</div>
 						</div>
 					</div>
 					<div class="collapsible-body">
 						<div class="row">
 							<div class="col s12">Discription of the uncompleted task</div>
 						</div>
-					</div>
-				</li>
-				
-				<li>
-					<div class="collapsible-header">
 						<div class="row">
-							<div class="col s7">Make a workspace</div>
-							<div class="col s3">Name of subhead(s)</div>
-							<div class="col s2">uncompleted</div>
+							<div class="col s3">Invite Accept Pending By:</div>
+							<div class="col s9"></div>
+						</div>
+						<div class="row">
+							<div class="col s3">Invite Accepted By:</div>
+							<div class="col s9"></div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<a class="modal-trigger btn-flat trigger_et" href="#modal1">Edit Task</a>
+								<a class="btn-flat trigger_dt" href="#!">Delete Task</a>
+							</div>
 						</div>
 					</div>
-					<div class="collapsible-body">
-						<div class="row">
-							<div class="col s12">Discription of the uncompleted task</div>
-						</div>
-					</div>
 				</li>
-
 			</ul>
 		</div>
 	</main>
@@ -105,7 +105,7 @@ session_start();
 			</form>
 		</div>
 		<div class="modal-footer">
-			<a href="#!" class="modal-action btn-flat" id="task_create">Create</a>
+			<a href="#!" class="modal-action btn-flat" id="task_save">Save</a>
 			<a href="#!" class="modal-action modal-close btn-flat">Cancel</a>
 		</div>
 	</div>
