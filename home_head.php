@@ -63,14 +63,6 @@ require_once 'class_user.php';
 							<div class="col s12">Discription of the uncompleted task</div>
 						</div>
 						<div class="row">
-							<div class="col s3">Invite Accept Pending By:</div>
-							<div class="col s9"></div>
-						</div>
-						<div class="row">
-							<div class="col s3">Invite Accepted By:</div>
-							<div class="col s9"></div>
-						</div>
-						<div class="row">
 							<div class="col s12">
 								<a class="modal-trigger btn-flat trigger_et" href="#modal1">Edit Task</a>
 								<a class="btn-flat trigger_dt" href="#!">Delete Task</a>

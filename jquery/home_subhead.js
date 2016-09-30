@@ -22,12 +22,7 @@ function fetch_tasks(){
 		url: "fetch_task.php",
 		data: {userid : userid},
 		success(data){
-			console.log('Connected');
-			if(data == 'Failed'){
-				alert('Ajax call(import_tasks) failed');
-			}else{
-				$('#task li:eq(0)').after(data);
-			}
+			$('#task li:eq(0)').after(data);
 		},
 		error(){
 			console.log('Ajax call(import_tasks) connection failed');

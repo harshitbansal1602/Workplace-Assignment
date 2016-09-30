@@ -91,12 +91,10 @@ Class user {
 
 
 	public function fetchSubTask() {
-		$i=0;
-		$num;
 		try{
 			$query = $this->db->prepare("SELECT * FROM `task` WHERE `sub_id` = :userid");
 			$query->bindparam(":userid",$_SESSION['userid']);
-			$num = $query->rowCount();
+			$query->execute();
 			$rows = $query->fetchAll();
 			foreach($rows as $row){
 				echo '
@@ -105,6 +103,42 @@ Class user {
 						<div class="row">
 							<div class="col s5">'.$row['topic'].'</div>
 							<div class="col s3">'.$row['head_id'].'</div>
+							<div class="col s2">'.$row['updated'].'</div>
+							<div class="col s2">'.$row['completed'].'</div>
+						</div>
+					</div>
+					<div class="collapsible-body">
+						<div class="row">
+							<div class="col s12">'.$row['des'].'</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<a class="btn-flat trigger ft" href="#!">Mark task Finished</a>
+							</div>
+						</div>
+					</div>
+				</li>
+				';
+			}
+		}
+		catch(PDOException $e){
+			// error in task fetching
+		}
+
+
+		public function fetchHeadTask() {
+		try{
+			$query = $this->db->prepare("SELECT * FROM `task` WHERE `head_id` = :userid");
+			$query->bindparam(":userid",$_SESSION['userid']);
+			$query->execute();
+			$rows = $query->fetchAll();
+			foreach($rows as $key=>$row){
+				echo '
+				<li id="task_'.$row['t_id'].'">
+					<div class="collapsible-header">
+						<div class="row">
+							<div class="col s5">'.$row['topic'].'</div>
+							<div class="col s3">'.$row['sub_id'].'</div>
 							<div class="col s2">'.$row['updated'].'</div>
 							<div class="col s2">'.$row['completed'].'</div>
 						</div>
