@@ -12,6 +12,7 @@ $(document).ready(function(){
 		}else{
 			//edit task
 			t_id = $(this).parents('li').eq(0).attr('id');
+			t_id = t_id.slice(5);
 			t_id = parseInt(t_id);	//to convert string to number
 			console.log(typeof t_id);
 			//filling form input
