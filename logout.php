@@ -1,8 +1,7 @@
 <?php
-
+ob_start();
+unset($_SESSION['userid']);
+unset($_POST);
 session_destroy();
-unset($user);
-header('Location: index.php');
-exit();
-
+header("Location: index.php");
 ?>

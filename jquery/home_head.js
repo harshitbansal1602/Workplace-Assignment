@@ -85,14 +85,7 @@ function alter_task(t_id,action){
 			alert('Ajax call(add_task) connection failed');
 		},
 		success(data){
-			if( data === 'Failed'){
-				console.log('Ajax call(add_task) failed');
-				alert('Ajax call(add_task) failed');
-			}else{
-				console.log('Ajax call(add_task) successful');
-				alert('Ajax call(add_task) successful');
-				$('.modal-close').click();
-			}
+			alert(data);
 		},
 		complete(){
 			console.log('Ajax call(add_task) completed');

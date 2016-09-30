@@ -1,6 +1,6 @@
 <?php
-session_start();
-$_SESSION['userid']=1;
+require_once 'connect.php';
+require_once 'class_user.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

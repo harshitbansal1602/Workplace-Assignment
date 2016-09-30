@@ -1,6 +1,6 @@
 <?php
-session_start();
-$_SESSION['userid']=1;
+require_once 'connect.php';
+require_once 'class_user.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,7 +99,7 @@ $_SESSION['userid']=1;
 				<textarea name="task_des" id="task_des" cols="20" rows="25" maxlength="500"></textarea>
 				<br>
 				<p>
-					<input type="checkbox" id="test5" value="Red" />
+					<input type="checkbox" id="test5" value="6" />
 					<label for="test5">Red</label>
 				</p>
 			</form>
