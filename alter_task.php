@@ -1,12 +1,10 @@
 <?php
 require_once 'connect.php';
-echo 'klj';
-if( isset($_POST['task_id']) && isset($_POST['action']) && !empty($_POST['task_id']) && !empty($_POST['action']) ){
+if( isset($_POST['task_id']) && isset($_POST['action']) && !empty($_POST['action']) ){
 	$t_id = $_POST['task_id'];
 	$action = $_POST['action'];
 	if($action == 'delete'){
-		$result = $user->alterTask($t_id,$action);
-		echo 'there';
+		$result = $user->alterTask($t_id,$action,null,null,null);
 		//echo $result;
 	}elseif ($action == 'update' || $action == 'create') {
 		if( isset($_POST['userid']) && isset($_POST['userid']) &&
@@ -20,10 +18,11 @@ if( isset($_POST['task_id']) && isset($_POST['action']) && !empty($_POST['task_i
 
 			$result = $user->alterTask($t_id,$action,$subhead,$sum,$des);
 			//echo $result;
-			echo "here";
+			unset($_POST);
 			
 		}else{
 			echo "FAILED3";
+			unset($_POST);
 		}
 	}
 }

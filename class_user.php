@@ -62,16 +62,21 @@ Class user {
 		if($action === 'delete'){
 			return "SUCCESS1";
 		}else if($action === 'update' || $action === 'create'){
+			if($action == 'create'){
+				$query2 = $this->db->prepare("SELECT `t_id` FROM `task` ORDER BY `t_id` DESC LIMIT 1");
+				$query2->execute();
+				$row = $query2->fetch(PDO::FETCH_ASSOC);
+				$t_id = $row['t_id'] +  1;
+			}else;
 			$h_id = $_SESSION['userid'];			
-			$query2 = $this->db->prepare("SELECT COUNT(`t_id`) FROM `task`");
-			$query2->execute();
-			$row = $query2->fetchColumn();
-			$t_id = $row +  1;
-			$query3 = $this->db->prepare("INSERT INTO `task` (`t_id`, `topic`, `des`, `sub_id`, `head_id`) VALUES (:t_id, :sum, :des, :s_id, :h_id) ");
+			date_default_timezone_set("Asia/Kolkata");
+			$time = date("Y-m-d h:ia");
+			$query3 = $this->db->prepare("INSERT INTO `task` (`t_id`, `topic`, `des`, `sub_id`, `head_id`, `updated`) VALUES (:t_id, :sum, :des, :s_id, :h_id, :updated) ");
 			$query3->bindparam(":t_id",$t_id);
 			$query3->bindparam(":sum",$sum);
 			$query3->bindparam(":des",$des);
 			$query3->bindparam(":h_id",$h_id);
+			$query3->bindparam(":updated",$time);
 			foreach ($subhead as $s_id) {
 				$query3->bindparam(":s_id",$s_id);
 				$query3->execute();

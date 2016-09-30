@@ -49,7 +49,7 @@ require_once 'class_user.php';
 					</div>
 				</li>
 				<!--insert tasks here-->
-				<li id="4">
+				<li id="5">
 					<div class="collapsible-header">
 						<div class="row">
 							<div class="col s5">Make a workspace</div>
@@ -98,10 +98,16 @@ require_once 'class_user.php';
 				<label for="task_des">Enter Task Description</label>
 				<textarea name="task_des" id="task_des" cols="20" rows="25" maxlength="500"></textarea>
 				<br>
+				<div id="free">
 				<p>
 					<input type="checkbox" id="test5" value="6" />
 					<label for="test5">Red</label>
 				</p>
+				<p>
+					<input type="checkbox" id="test7" value="7" />
+					<label for="test7">blue</label>
+				</p>
+				</div>
 			</form>
 		</div>
 		<div class="modal-footer">

@@ -7,8 +7,8 @@ $(document).ready(function(){
 	$('.modal-trigger').click(function(){
 		if($(this).attr('id')=='trigger_ct'){
 			//new task
-			t_id = 1;
-			console.log(typeof t_id);
+			t_id = 0;
+			console.log(t_id);
 		}else{
 			//edit task
 			t_id = $(this).parents('li').eq(0).attr('id');
@@ -21,13 +21,39 @@ $(document).ready(function(){
 			console.log(des);
 			$('#task_sum').val(sum);
 			$('#task_des').val(des);
+
 			//appending students already selected
+			$.ajax({
+				type: "POST",
+				url: "fetch_task.php",
+				data: {userid : userid},
+				success(data){
+					console.log('Connected');
+					if(data == 'Failed'){
+						alert('Ajax call(import_tasks) failed');
+					}else{
+						$('#task li:eq(0)').after(data);
+					}
+				},
+				error(){
+					console.log('Ajax call(import_tasks) connection failed');
+					alert('Ajax call(import_tasks) connection failed');
+				},
+				complete(){
+					console.log('Ajax call(import_tasks) completed');
+				}
+			});
+
 		}
 		//appending form with free sub-heads
 	});
 	//saving task
 	$('#task_save').click(function() {
-		alter_task(t_id,'update');
+		if(t_id>0){
+			alter_task(t_id,'update');
+		}else{
+			alter_task(t_id,'create');
+		}
 	});
 
 	//delete task
@@ -64,16 +90,17 @@ function fetch_tasks(){
 }
 
 function alter_task(t_id,action){
-	if( action === 'update' || action === 'create' ){
+
+	if( action == 'update' || action == 'create' ){
 		var task_sum = $('#task_sum').val();
 		var task_des = $('#task_des').val();
 		var subhead = new Array();
+
 
 		$('input[type="checkbox"]:checked').each(function(){
 		if( $(this).val() == 0 );			//for excluding vlaue=0 option
 		else{
 			$val = parseInt($(this).val());
-			console.log(typeof $val);
 			subhead.push( $val );
 		}
 		});
@@ -91,7 +118,7 @@ function alter_task(t_id,action){
 			console.log(data);
 		},
 		complete(){
-			console.log('Ajax call(add_task) completed');
+			console.log(action);
 		}
 	});
 
