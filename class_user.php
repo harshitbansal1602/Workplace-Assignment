@@ -182,26 +182,54 @@ Class user {
 			// error in task fetching
 			}
 		}
+
+		public function fetchFree() {
+			try{
+				$query = $this->db->prepare("SELECT * FROM `login` WHERE `free` = '1'");
+				$query->execute();
+				$rows = $query->fetchAll(PDO::FETCH_ASSOC);
+				foreach($rows as $row){
+					echo '
+					<p>
+							<input type="checkbox" id="'.$row['name'].'" value="'.$row['id'].'" />
+							<label for="'.$row['name'].'">'.$row['name'].'</label>
+					</p>
+					';
+				}
+			}
+			catch(PDOException $e){
+				// error in task fetching
+			}
+		}
+
+		public function fetchAll() {
+			try{
+				$query = $this->db->prepare("SELECT * FROM `login` WHERE `free` != '-1'");
+				$query->execute();
+				$rows = $query->fetchAll(PDO::FETCH_ASSOC);
+				foreach($rows as $row){
+					if($row['free'] == 0){
+						$checked = "checked = \"checked\"";
+					}
+					else {
+						$checked = "";
+					}
+					echo '
+						<p>
+								<input type="checkbox" id="'.$row['name'].'" value="'.$row['id'].'" '.$checked.'/>
+								<label for="'.$row['name'].'">'.$row['name'].'</label>
+						</p>
+					';
+				}
+			}
+			catch(PDOException $e){
+				// error in task fetching
+			}
+		}
+
+
+
 	}
-
-/*//First login the user then according to the role make it subhead or head.Both extends user.
-
-Class subhead extends user {
-	private $id;
-
-	function __construct($db_data,$userid){
-		$this->id = $userid;
-	}
-}
-
-
-Class head extends user {
-	private $id;
-
-	function __construct($db_data,$userid){
-		$this->id = $userid;
-	}
-}*/
 
 ?>
 

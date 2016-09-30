@@ -26,7 +26,7 @@ $(document).ready(function(){
 			//appending students already selected
 			$.ajax({
 				type: "POST",
-				url: "fetch_task.php",
+				url: "fetch_all.php",
 				data: {userid : userid},
 				success(data){
 					console.log('Connected');
@@ -44,9 +44,24 @@ $(document).ready(function(){
 					console.log('Ajax call(import_tasks) completed');
 				}
 			});
-
 		}
 		//appending form with free sub-heads
+		$.ajax({
+				type: "POST",
+				url: "fetch_free.php",
+				data: {userid : userid},
+				success(data){
+					$('#free').html(data);
+				},
+				error(){
+					console.log('Ajax call(import_tasks) connection failed');
+					alert('Ajax call(import_tasks) connection failed');
+				},
+				complete(){
+					console.log('Ajax call(import_tasks) completed');
+				}
+			});
+
 	});
 	//saving task
 	$('#task_save').click(function() {
