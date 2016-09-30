@@ -27,13 +27,13 @@ $(document).ready(function(){
 	});
 	//saving task
 	$('#task_save').click(function() {
-		create_task(t_id);
+		alter_task(t_id,'update');
 	});
 
 	//delete task
 	$('.trigger_dt').click(function(){
 		t_id = $(this).parents('li').eq(0).attr('id');
-		delete_task(t_id);
+		alter_task(t_id,'delete');
 	});
 
 	fetch_tasks();
@@ -63,21 +63,23 @@ function fetch_tasks(){
 	});
 }
 
-function create_task(t_id){
-	var task_sum = $('#task_sum').val();
-	var task_des = $('#task_des').val();
-	var subhead = new Array();
+function alter_task(t_id,action){
+	if( action === 'update' || action === 'create' ){
+		var task_sum = $('#task_sum').val();
+		var task_des = $('#task_des').val();
+		var subhead = new Array();
 
-	$('input[type="checkbox"]:checked').each(function(){
+		$('input[type="checkbox"]:checked').each(function(){
 		if( $(this).val() == 0 );			//for excluding vlaue=0 option
 		else
 			subhead.push( $(this).val() );
-	});
+		});
+	}else;
 
 	$.ajax({
 		type: "POST",
-		url: "add_task.php",
-		data: {userid : userid, task_id: t_id, task_sum: task_sum, task_des: task_des, subhead: subhead},
+		url: "alter_task.php",
+		data: {userid : userid, task_id: t_id, action: action, task_sum: task_sum, task_des: task_des, subhead: subhead},
 		error(){
 			console.log('Ajax call(add_task) connection failed');
 			alert('Ajax call(add_task) connection failed');
