@@ -7,13 +7,13 @@ $(document).ready(function(){
 	$('.modal-trigger').click(function(){
 		if($(this).attr('id')=='trigger_ct'){
 			//new task
-			t_id = 0;
-			console.log(t_id);
+			t_id = 1;
+			console.log(typeof t_id);
 		}else{
 			//edit task
 			t_id = $(this).parents('li').eq(0).attr('id');
-			t_id = t_id * 1;	//to convert string to number
-			console.log(t_id);
+			t_id = parseInt(t_id);	//to convert string to number
+			console.log(typeof t_id);
 			//filling form input
 			var sum = $(this).parents('li').eq(0).find('div.s5').eq(0).text();
 			console.log(sum);
@@ -71,8 +71,11 @@ function alter_task(t_id,action){
 
 		$('input[type="checkbox"]:checked').each(function(){
 		if( $(this).val() == 0 );			//for excluding vlaue=0 option
-		else
-			subhead.push( $(this).val() );
+		else{
+			$val = parseInt($(this).val());
+			console.log(typeof $val);
+			subhead.push( $val );
+		}
 		});
 	}else;
 
@@ -85,7 +88,7 @@ function alter_task(t_id,action){
 			alert('Ajax call(add_task) connection failed');
 		},
 		success(data){
-			alert(data);
+			console.log(data);
 		},
 		complete(){
 			console.log('Ajax call(add_task) completed');

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2016 at 05:36 PM
+-- Generation Time: Sep 30, 2016 at 06:37 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.6.19
 
@@ -55,15 +55,22 @@ INSERT INTO `login` (`id`, `name`, `username`, `password`, `role`, `free`) VALUE
 --
 
 CREATE TABLE `task` (
+  `id` int(11) NOT NULL,
   `t_id` int(11) NOT NULL,
   `sub_id` int(11) NOT NULL,
   `head_id` int(11) NOT NULL,
   `topic` varchar(100) NOT NULL,
   `des` varchar(300) NOT NULL,
-  `status` int(11) DEFAULT NULL,
   `updated` varchar(50) NOT NULL,
   `completed` varchar(50) NOT NULL DEFAULT 'Not completed.'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `task`
+--
+
+INSERT INTO `task` (`id`, `t_id`, `sub_id`, `head_id`, `topic`, `des`, `updated`, `completed`) VALUES
+(12, 1, 6, 1, 'aasd', 'adadas', '', 'Not completed.');
 
 --
 -- Indexes for dumped tables
@@ -79,7 +86,7 @@ ALTER TABLE `login`
 -- Indexes for table `task`
 --
 ALTER TABLE `task`
-  ADD PRIMARY KEY (`t_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -94,7 +101,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

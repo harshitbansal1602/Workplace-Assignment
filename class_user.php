@@ -62,11 +62,11 @@ Class user {
 		if($action === 'delete'){
 			return "SUCCESS1";
 		}else if($action === 'update' || $action === 'create'){
-			$h_id = $_SESSION['userid'];
-			
+			$h_id = $_SESSION['userid'];			
 			$query2 = $this->db->prepare("SELECT COUNT(`t_id`) FROM `task`");
-			$t_id = $query2 +  1;
-
+			$query2->execute();
+			$row = $query2->fetchColumn();
+			$t_id = $row +  1;
 			$query3 = $this->db->prepare("INSERT INTO `task` (`t_id`, `topic`, `des`, `sub_id`, `head_id`) VALUES (:t_id, :sum, :des, :s_id, :h_id) ");
 			$query3->bindparam(":t_id",$t_id);
 			$query3->bindparam(":sum",$sum);
