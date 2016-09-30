@@ -69,15 +69,10 @@ $(document).ready(function(){
 function fetch_tasks(){
 	$.ajax({
 		type: "POST",
-		url: "fetch_task.php",
+		url: "fetch_taskHead.php",
 		data: {userid : userid},
 		success(data){
-			console.log('Connected');
-			if(data == 'Failed'){
-				alert('Ajax call(import_tasks) failed');
-			}else{
-				$('#task li:eq(0)').after(data);
-			}
+			$('#task_list li:eq(0)').after(data);
 		},
 		error(){
 			console.log('Ajax call(import_tasks) connection failed');

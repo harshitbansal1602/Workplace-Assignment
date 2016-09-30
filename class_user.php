@@ -124,44 +124,65 @@ Class user {
 		catch(PDOException $e){
 			// error in task fetching
 		}
+	}
 
-
-		public function fetchHeadTask() {
+	public function fetchHeadTask() {
 		try{
+			$query = $this->db->prepare("SELECT `id`,`name` FROM `login` WHERE `role` = '0'");
+			$query->execute();
+			$names = $query->fetchAll(PDO::FETCH_ASSOC);
+			foreach($names as $n){
+				$names2[$n['id']]=$n['name'];
+			}
+			unset($n);
+
 			$query = $this->db->prepare("SELECT * FROM `task` WHERE `head_id` = :userid");
 			$query->bindparam(":userid",$_SESSION['userid']);
 			$query->execute();
 			$rows = $query->fetchAll();
-			foreach($rows as $key=>$row){
-				echo '
-				<li id="task_'.$row['t_id'].'">
+			$num = $query->rowCount();
+			$html='';
+
+			for($key=0; $key<$num; ){
+
+				$html .= '
+				<li id="task_'.$rows[$key]['t_id'].'">
 					<div class="collapsible-header">
 						<div class="row">
-							<div class="col s5">'.$row['topic'].'</div>
-							<div class="col s3">'.$row['sub_id'].'</div>
-							<div class="col s2">'.$row['updated'].'</div>
-							<div class="col s2">'.$row['completed'].'</div>
-						</div>
-					</div>
-					<div class="collapsible-body">
-						<div class="row">
-							<div class="col s12">'.$row['des'].'</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<a class="btn-flat trigger ft" href="#!">Mark task Finished</a>
+							<div class="col s5">'.$rows[$key]['topic'].'</div>
+							<div class="col s3">'.$names2[$rows[$key]['sub_id']];
+
+								for($key2=$key+1; $key2<$num && $rows[$key]['t_id'] === $rows[$key2]['t_id']; $key2++){
+									$html .= ','.$names2[$rows[$key2]['sub_id']];
+								}
+
+								$html.='</div>
+								<div class="col s2">'.$rows[$key]['updated'].'</div>
+								<div class="col s2">'.$rows[$key]['completed'].'</div>
 							</div>
 						</div>
-					</div>
-				</li>
-				';
+						<div class="collapsible-body">
+							<div class="row">
+								<div class="col s12">'.$rows[$key]['des'].'</div>
+							</div>
+							<div class="row">
+								<div class="col s12">
+									<a class="btn-flat trigger ft" href="#!">Mark task Finished</a>
+								</div>
+							</div>
+						</div>
+					</li>
+					';
+					echo $html;
+					$html = '';
+					$key = $key2;
+				}
+			}
+			catch(PDOException $e){
+			// error in task fetching
 			}
 		}
-		catch(PDOException $e){
-			// error in task fetching
-		}
 	}
-}
 
 /*//First login the user then according to the role make it subhead or head.Both extends user.
 
