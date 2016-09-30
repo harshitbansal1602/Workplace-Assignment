@@ -34,7 +34,7 @@ Class user {
 			return true;
 		}
 		else { 
-			return False;
+			return false;
 		}
 	}
 

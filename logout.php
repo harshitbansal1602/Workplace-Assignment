@@ -1,7 +1,5 @@
 <?php
-ob_start();
-unset($_SESSION['userid']);
-unset($_POST);
-session_destroy();
+require_once 'connect.php';
+$user->logout();
 header("Location: index.php");
 ?>

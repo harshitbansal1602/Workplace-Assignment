@@ -1,12 +1,12 @@
 <?php
 require_once 'connect.php';
 
-/*if(isset($_POST['userid']) && !empty($_POST['userid']) && isset($_POST['password']) && !empty($_POST['password'])){
+if(isset($_POST['userid']) && !empty($_POST['userid']) && isset($_POST['password']) && !empty($_POST['password'])){
 	$user->login($_POST['userid'],$_POST['password']);
 }
 else{
 	//error message.
-}*/
+}
 
 if($user->isLoggedIn()){
 	if($user->getRole() == 1){
@@ -49,5 +49,6 @@ if($user->isLoggedIn()){
     </form>
   </div>
 </div>
+
 </body>
 </html>
