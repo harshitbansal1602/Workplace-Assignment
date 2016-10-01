@@ -57,13 +57,10 @@ Class user {
 			$query->bindparam(":t_id",$t_id);
 			$query->execute();
 
-			$query5 = $this->db->prepare("UPDATE `login` SET `free`='1' WHERE `id` = :s_id");
-			foreach ($subhead as $s_id) {
-				$query5->bindparam(":s_id",$s_id);
-				$query5->execute();
-			}
-			unset($s_id);
-
+			$query5 = $this->db->prepare("UPDATE `login` SET `free` = 0 WHERE `free` = :t_id");
+			$query5->bindparam(":t_id",$t_id);
+			$query5->execute();
+			
 		}else;
 
 		//Entering new entry
@@ -92,7 +89,8 @@ Class user {
 			}
 			unset($s_id);
 
-			$query4 = $this->db->prepare("UPDATE `login` SET `free`='0' WHERE `id` = :s_id");
+			$query4 = $this->db->prepare("UPDATE `login` SET `free`=:t_id WHERE `id` = :s_id");
+			$query4->bindparam(":t_id",$t_id);
 			foreach ($subhead as $s_id) {
 				$query4->bindparam(":s_id",$s_id);
 				$query4->execute();
@@ -203,7 +201,7 @@ Class user {
 
 		public function fetchFree() {
 			try{
-				$query = $this->db->prepare("SELECT * FROM `login` WHERE `free` = '1'");
+				$query = $this->db->prepare("SELECT * FROM `login` WHERE `free` = '0'");
 				$query->execute();
 				$rows = $query->fetchAll(PDO::FETCH_ASSOC);
 				foreach($rows as $row){
@@ -222,12 +220,13 @@ Class user {
 
 		public function fetchAll($t_id) {
 			try{
-				$query = $this->db->prepare("SELECT * FROM `task` WHERE `t_id` = :t_id");
+				/*$query = $this->db->prepare("SELECT * FROM `task` WHERE `t_id` = :t_id");
 				$query->bindparam(":t_id",$t_id);
 				$query->execute();
-				$rows = $query->fetchAll(PDO::FETCH_ASSOC);
+				$rows = $query->fetchAll(PDO::FETCH_ASSOC);*/
 				
-				$query = $this->db->prepare("SELECT `id`,`name` FROM `login` WHERE `role` = '0'");
+				$query = $this->db->prepare("SELECT `id`,`name` FROM `login` WHERE `role` = '0' AND `free`=:t_id");
+				$query->bindparam(":t_id",$t_id);
 				$query->execute();
 				$names = $query->fetchAll(PDO::FETCH_ASSOC);
 				foreach($names as $n){
@@ -237,12 +236,12 @@ Class user {
 
 
 
-				foreach($rows as $row){
+				foreach($names as $row){
 					
 					echo '
 					<p>
-						<input type="checkbox" id="'.$names2[$row['sub_id']].'" value="'.$row['sub_id'].'" checked disabled />
-						<label for="'.$names2[$row['sub_id']].'">'.$names2[$row['sub_id']].'</label>
+						<input type="checkbox" id="'.$names2[$row['id']].'" value="'.$row['id'].'" checked />
+						<label for="'.$names2[$row['id']].'">'.$names2[$row['id']].'</label>
 					</p>
 					';
 				}
