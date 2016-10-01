@@ -1,5 +1,9 @@
 <?php
 require_once 'connect.php';
+
+if(!$user->isLoggedIn()){
+	header("Location: index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +21,7 @@ require_once 'connect.php';
 	<link rel="shortcut icon" href="images/">
 
 	<!--CSS for this file-->
-	<link rel="stylesheet" href="css/">
+	<link rel="stylesheet" href="css/home_subhead.css">
 
 </head>
 <body>
@@ -41,7 +45,8 @@ require_once 'connect.php';
 				<li>
 					<div class="collapsible-header">
 						<div class="row">
-							<div class="col s5"><b>Task</b></div>
+							<div class="col s3"><b>Task</b></div>
+							<div class="col s2"><b>Task given by</b></div>
 							<div class="col s3"><b>Sub-Head(s) working on it</b></div>
 							<div class="col s2"><b>Last updated on</b></div>
 							<div class="col s2"><b>Completed On</b></div>

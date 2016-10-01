@@ -3,7 +3,7 @@ session_start();
 
 $db_host = "localhost";
 $db_user = "root";
-$db_password = "7897";
+$db_password = "";
 $db_name  = "workspace";
 
 try{

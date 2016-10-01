@@ -6,6 +6,7 @@ $(document).ready(function(){
 	var t_id;
 	$(document).on('click', '.modal-trigger', function(event) {
 		event.preventDefault();
+		$('#error').html('');
 		if($(this).attr('id')=='trigger_ct'){
 			
 			//new task
@@ -122,6 +123,14 @@ function alter_task(t_id,action){
 				subhead.push( $val );
 			}
 		});
+
+		if( !task_sum && !subhead.length ){
+			$('#error').html('Please fill all fields correctly and select atleast one sub-head');
+			return;
+		}else{
+			$('#error').html('');
+		}
+
 	}else;
 
 	$.ajax({
@@ -139,12 +148,15 @@ function alter_task(t_id,action){
 			}else{
 				$('#task_save').removeAttr('disabled');
 				$('.modal-close').click();
+				fetch_tasks();
 			}
 		},
 		complete(){
 			console.log(action);
 		}
 	});
+
+
 
 }
 

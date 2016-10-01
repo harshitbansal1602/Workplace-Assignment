@@ -115,17 +115,26 @@ Class user {
 			}
 			unset($n);
 			
-			$query = $this->db->prepare("SELECT * FROM `task` WHERE `sub_id` = :userid");
+			$query = $this->db->prepare("SELECT * FROM `task` WHERE `sub_id` = :userid ORDER BY `completed` DESC, `updated` DESC");
 			$query->bindparam(":userid",$_SESSION['userid']);
 			$query->execute();
 			$rows = $query->fetchAll();
 			foreach($rows as $row){
-				echo '
-				<li id="task_'.$row['t_id'].'">
-					<div class="collapsible-header">
+				$html = "";
+				$html .= '<li id="task_'.$row['t_id'].'">
+					<div class="collapsible-header ';
+
+					if($row['completed'] !='Not completed.'){
+						$html .= 'completed';
+					}else{
+						$html .= 'uncompleted';
+					}
+
+					$html.='">
 						<div class="row">
-							<div class="col s5">'.$row['topic'].'</div>
-							<div class="col s3">'.$row['head_id'].'</div>
+							<div class="col s3">'.$row['topic'].'</div>
+							<div class="col s2">'.$names2[$row['head_id']].'</div>
+							<div class="col s3">'.$names2[$row['sub_id']].'</div>
 							<div class="col s2">'.$row['updated'].'</div>
 							<div class="col s2">'.$row['completed'].'</div>
 						</div>
@@ -133,15 +142,21 @@ Class user {
 					<div class="collapsible-body">
 						<div class="row">
 							<div class="col s12">'.$row['des'].'</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<a class="btn-flat trigger ft" href="#!">Mark task Finished</a>
-							</div>
-						</div>
-					</div>
+						</div>';
+						
+						if($row['completed'] =='Not completed.'){
+										$html .= '<div class="row">
+													<div class="col s12">
+														<a class="btn-flat trigger ft" href="#!">Mark task Finished</a>
+													</div>
+												</div>';
+						}
+						
+					$html .= '</div>
 				</li>
 				';
+
+				echo $html;
 			}
 		}
 		catch(PDOException $e){
@@ -159,7 +174,7 @@ Class user {
 			}
 			unset($n);
 
-			$query = $this->db->prepare("SELECT * FROM `task` WHERE `head_id` = :userid ORDER BY `completed` ASC, `updated` DESC");
+			$query = $this->db->prepare("SELECT * FROM `task` WHERE `head_id` = :userid ORDER BY `completed` DESC, `updated` DESC");
 			$query->bindparam(":userid",$userid);
 			$query->execute();
 			$rows = $query->fetchAll();
@@ -170,7 +185,15 @@ Class user {
 
 				$html .= '
 				<li id="task_'.$rows[$key]['t_id'].'">
-					<div class="collapsible-header">
+					<div class="collapsible-header ';
+
+					if($rows[$key]['completed'] !='Not completed.'){
+						$html .= 'completed';
+					}else{
+						$html .= 'uncompleted';
+					}
+
+					$html .= '">
 						<div class="row">
 							<div class="col s5">'.$rows[$key]['topic'].'</div>
 							<div class="col s3">'.$names2[$rows[$key]['sub_id']];
@@ -188,13 +211,17 @@ Class user {
 							<div class="row">
 								<div class="col s12">'.$rows[$key]['des'].'</div>
 							</div>
-							<div class="row">
-								<div class="col s12">
-									<a class="modal-trigger btn-flat trigger_et" href="#modal1">Edit Task</a>
-									<a class="btn-flat trigger_dt" href="#!">Delete Task</a>
-								</div>
-							</div>
-						</div>
+							';
+									if($rows[$key]['completed'] =='Not completed.'){
+										$html .= '<div class="row">
+													<div class="col s12">
+														<a class="modal-trigger btn-flat trigger_et" href="#modal1">Edit Task</a>
+														<a class="btn-flat trigger_dt" href="#!">Delete Task</a>
+													</div>
+												</div>';
+									}
+
+				$html .='</div>
 					</li>
 					';
 					echo $html;
@@ -311,6 +338,21 @@ Class user {
 			catch(PDOException $e){
 			// error in task fetching
 			}
+		}
+
+		public function completed($t_id){
+			
+			date_default_timezone_set("Asia/Kolkata");
+			$time = date("y/m/d h:ia");
+
+			$query = $this->db->prepare("UPDATE `task` SET `completed` = :tim WHERE `t_id` = :t_id");
+			$query->bindparam(":tim",$time);
+			$query->bindparam(":t_id",$t_id);
+			$query->execute();
+
+			$query  = $this->db->prepare("UPDATE `login` SET `free` = 0 WHERE `free` = :t_id");
+			$query->bindparam(":t_id",$t_id);
+			$query->execute();
 		}
 
 

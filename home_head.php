@@ -1,5 +1,10 @@
 <?php
 require_once 'connect.php';
+
+if(!$user->isLoggedIn()){
+	header("Location: index.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +22,7 @@ require_once 'connect.php';
 	<link rel="shortcut icon" href="images/">
 	
 	<!--CSS for this file-->
-	<link rel="stylesheet" href="css/">
+	<link rel="stylesheet" href="css/home_head.css">
 	<style>
 	</style>
 </head>
@@ -77,6 +82,7 @@ require_once 'connect.php';
 				<div id="free">
 				</div>
 			</form>
+			<div id="error"></div>
 		</div>
 		<div class="modal-footer">
 			<a href="#!" class="modal-action btn-flat" id="task_save">Save</a>
