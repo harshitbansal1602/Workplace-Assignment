@@ -1,14 +1,37 @@
 $(document).ready(function(){
 	//activating modal
 	$('.modal-trigger').leanModal();
+	$(document).on('click', '.modal-trigger', function(event) {
+		event.preventDefault();
+		$('.modal-trigger').leanModal();
+	});
+
 	
 	//modal open
 	var t_id;
-	$('.modal-trigger').click(function(){
+	$(document).on('click', '.modal-trigger', function(event) {
+		event.preventDefault();
 		if($(this).attr('id')=='trigger_ct'){
 			//new task
 			t_id = 0;
 			console.log(t_id);
+			//appending form with free sub-heads
+			$.ajax({
+				type: "POST",
+				url: "fetch_free.php",
+				data: {userid : userid},
+				success(data){
+					$('#free').html(data);
+				},
+				error(){
+					console.log('Ajax call(import_tasks) connection failed');
+					alert('Ajax call(import_tasks) connection failed');
+				},
+				complete(){
+					console.log('Ajax call(import_tasks) completed');
+				}
+			});
+
 		}else{
 			//edit task
 			t_id = $(this).parents('li').eq(0).attr('id');
@@ -27,29 +50,7 @@ $(document).ready(function(){
 			$.ajax({
 				type: "POST",
 				url: "fetch_all.php",
-				data: {userid : userid},
-				success(data){
-					console.log('Connected');
-					if(data == 'Failed'){
-						alert('Ajax call(import_tasks) failed');
-					}else{
-						$('#task li:eq(0)').after(data);
-					}
-				},
-				error(){
-					console.log('Ajax call(import_tasks) connection failed');
-					alert('Ajax call(import_tasks) connection failed');
-				},
-				complete(){
-					console.log('Ajax call(import_tasks) completed');
-				}
-			});
-		}
-		//appending form with free sub-heads
-		$.ajax({
-				type: "POST",
-				url: "fetch_free.php",
-				data: {userid : userid},
+				data: {userid : userid, t_id:t_id},
 				success(data){
 					$('#free').html(data);
 				},
@@ -61,6 +62,7 @@ $(document).ready(function(){
 					console.log('Ajax call(import_tasks) completed');
 				}
 			});
+		}
 
 	});
 	//saving task
@@ -73,7 +75,8 @@ $(document).ready(function(){
 	});
 
 	//delete task
-	$('.trigger_dt').click(function(){
+	$(document).on('click', '.trigger_dt', function(event) {
+		event.preventDefault();
 		t_id = $(this).parents('li').eq(0).attr('id');
 		alter_task(t_id,'delete');
 	});
@@ -114,7 +117,7 @@ function alter_task(t_id,action){
 			$val = parseInt($(this).val());
 			subhead.push( $val );
 		}
-		});
+	});
 	}else;
 
 	$.ajax({

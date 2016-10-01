@@ -90,14 +90,6 @@ require_once 'connect.php';
 				<textarea name="task_des" id="task_des" cols="20" rows="25" maxlength="500"></textarea>
 				<br>
 				<div id="free">
-					<p>
-						<input type="checkbox" id="test5" value="6" />
-						<label for="test5">Red</label>
-					</p>
-					<p>
-						<input type="checkbox" id="test7" value="7" />
-						<label for="test7">blue</label>
-					</p>
 				</div>
 			</form>
 		</div>
