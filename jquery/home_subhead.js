@@ -1,21 +1,21 @@
 $(document).ready(function(){
-	fetch_tasks();
-
+	
 	var t_id;
-	//accept invite
-	$('.trigger').click(function(){
-		t_id = $(this).parents('li').eq(0).attr('id');
-		t_id = t_id.slice(5);
-		t_id = parseInt(t_id);
-		console.log(t_id);
-		if( $(this).hasClass('at') ){
-			accept_invite(t_id);
-		}else{
-			mark_finished(t_id);
-		}
+
+	//my_task view
+	$('#my_task').click(function(){
+		fetch_tasks();
 	});
 
+	//all_task view
+	$('#all_task').click(function(){
+		fetch_all_tasks();
+	});
+
+	$('#my_task').click();
+
 });
+
 
 function fetch_tasks(){
 	$.ajax({
@@ -23,40 +23,38 @@ function fetch_tasks(){
 		url: "fetch_task.php",
 		data: {userid : userid},
 		success(data){
-			$('#task li:eq(0)').after(data);
-		},
-		error(){
-			console.log('Ajax call(import_tasks) connection failed');
-			alert('Ajax call(import_tasks) connection failed');
-		},
-		complete(){
-			console.log('Ajax call(import_tasks) completed');
-		}
-
-	});
-}
-
-function accept_invite(t_id){
-	$.ajax({
-		type: "POST",
-		url: "accept_task.php",
-		data: {userid : userid},
-		success(data){
-			console.log('Connected');
-			if(data == 'Failed'){
-				alert('Ajax call(import_tasks) failed');
+			if( data=='FAILED' ){
+				alert('Sorry, some error occured. Please reload the page again.');
 			}else{
-				$('#task li:eq(0)').after(data);
+				$('#task_list').html(data);
+				$('.modal-trigger').leanModal();
 			}
 		},
 		error(){
 			console.log('Ajax call(import_tasks) connection failed');
-			alert('Ajax call(import_tasks) connection failed');
-		},
-		complete(){
-			console.log('Ajax call(import_tasks) completed');
+			alert('Sorry, some error occured. Please reload the page again.');
 		}
-
 	});
 }
+
+
+function fetch_all_tasks(){
+	$.ajax({
+		type: "POST",
+		url: "fetch_taskAll.php",
+		success(data){
+			if( data=='FAILED' ){
+				alert('Sorry, some error occured. Please reload the page again.');
+			}else{
+				$('#task_list').html(data);
+				$('.modal-trigger').leanModal();
+			}
+		},
+		error(){
+			console.log('Ajax call(import_tasks) connection failed');
+			alert('Sorry, some error occured. Please reload the page again.');
+		}
+	});
+}
+
 

@@ -23,8 +23,13 @@ require_once 'connect.php';
 <body>
 	<header>
 		<div class="row">
-			<div class="col s8">Welcome</div>
-			<div class="col s2">All Tasks</div>
+			<div class="col s6">Welcome</div>
+			<div class="col s2">
+				<a id="my_task" href="#!">My Tasks</a>
+			</div>
+			<div class="col s2">
+				<a id="all_task" href="#!">All Tasks</a>
+			</div>
 			<div class="col s2">
 				<a href="logout.php">Logout</a>
 			</div>
@@ -32,7 +37,7 @@ require_once 'connect.php';
 	</header>
 	<main>
 		<div class="container" >
-			<ul class="collapsible" id="task" data-collapsible="accordion">
+			<ul class="collapsible" id="task_list_head" data-collapsible="accordion">
 				<li>
 					<div class="collapsible-header">
 						<div class="row">
@@ -43,30 +48,9 @@ require_once 'connect.php';
 						</div>
 					</div>
 				</li>
+			</ul>
+			<ul class="collapsible" id="task_list" data-collapsible="accordion">
 				<!--insert tasks here-->
-				<li id="4">
-					<div class="collapsible-header">
-						<div class="row">
-							<div class="col s5">Make a workspace</div>
-							<div class="col s3">abc</div>
-							<div class="col s2">27/6/2016</div>
-							<div class="col s2">-</div>
-						</div>
-					</div>
-					<div class="collapsible-body">
-						<div class="row">
-							<div class="col s12">Discription of the uncompleted task</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<a class="btn-flat trigger at" href="#!">Accept Invite</a>
-							</div>
-							<div class="col s12">
-								<a class="btn-flat trigger ft" href="#!">Mark task Finished</a>
-							</div>
-						</div>
-					</div>
-				</li>
 			</ul>
 		</div>
 	</main>

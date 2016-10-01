@@ -24,8 +24,13 @@ require_once 'connect.php';
 <body>
 	<header>
 		<div class="row">
-			<div class="col s6">Welcome</div>
-			<div class="col s2">All Tasks</div>
+			<div class="col s4">Welcome</div>
+			<div class="col s2">
+				<a id="my_task" href="#!">My Tasks</a>
+			</div>
+			<div class="col s2">
+				<a id="all_task" href="#!">All Tasks</a>
+			</div>
 			<div class="col s2">
 				<a class="modal-trigger" id="trigger_ct" href="#modal1">Create Task</a>
 			</div>
@@ -36,7 +41,7 @@ require_once 'connect.php';
 	</header>
 	<main>
 		<div class="container" >
-			<ul class="collapsible" id="task_list" data-collapsible="accordion">
+			<ul class="collapsible" id="task_list_head" data-collapsible="accordion">
 				<li>
 					<div class="collapsible-header">
 						<div class="row">
@@ -47,28 +52,8 @@ require_once 'connect.php';
 						</div>
 					</div>
 				</li>
-				<!--insert tasks here-->
-				<li id="5">
-					<div class="collapsible-header">
-						<div class="row">
-							<div class="col s5">Make a workspace</div>
-							<div class="col s3">abc</div>
-							<div class="col s2">27/6/2016</div>
-							<div class="col s2">-</div>
-						</div>
-					</div>
-					<div class="collapsible-body">
-						<div class="row">
-							<div class="col s12">Discription of the uncompleted task</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<a class="modal-trigger btn-flat trigger_et" href="#modal1">Edit Task</a>
-								<a class="btn-flat trigger_dt" href="#!">Delete Task</a>
-							</div>
-						</div>
-					</div>
-				</li>
+			</ul>
+			<ul class="collapsible" id="task_list" data-collapsible="accordion">
 			</ul>
 		</div>
 	</main>
