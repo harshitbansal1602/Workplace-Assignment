@@ -70,7 +70,7 @@ Class user {
 			}else;
 			$h_id = $_SESSION['userid'];			
 			date_default_timezone_set("Asia/Kolkata");
-			$time = date("Y-m-d h:ia");
+			$time = date("d/m/y h:ia");
 			$query3 = $this->db->prepare("INSERT INTO `task` (`t_id`, `topic`, `des`, `sub_id`, `head_id`, `updated`) VALUES (:t_id, :sum, :des, :s_id, :h_id, :updated) ");
 			$query3->bindparam(":t_id",$t_id);
 			$query3->bindparam(":sum",$sum);
@@ -166,10 +166,11 @@ Class user {
 								<div class="col s12">'.$rows[$key]['des'].'</div>
 							</div>
 							<div class="row">
-								<div class="col s12">
-									<a class="btn-flat trigger ft" href="#!">Mark task Finished</a>
-								</div>
+							<div class="col s12">
+								<a class="modal-trigger btn-flat trigger_et" href="#modal1">Edit Task</a>
+								<a class="btn-flat trigger_dt" href="#!">Delete Task</a>
 							</div>
+						</div>
 						</div>
 					</li>
 					';
@@ -190,33 +191,8 @@ Class user {
 				$rows = $query->fetchAll(PDO::FETCH_ASSOC);
 				foreach($rows as $row){
 					echo '
-					<p>
-							<input type="checkbox" id="'.$row['name'].'" value="'.$row['id'].'" />
-							<label for="'.$row['name'].'">'.$row['name'].'</label>
-					</p>
-					';
-				}
-			}
-			catch(PDOException $e){
-				// error in task fetching
-			}
-		}
-
-		public function fetchAll() {
-			try{
-				$query = $this->db->prepare("SELECT * FROM `login` WHERE `free` != '-1'");
-				$query->execute();
-				$rows = $query->fetchAll(PDO::FETCH_ASSOC);
-				foreach($rows as $row){
-					if($row['free'] == 0){
-						$checked = "checked = \"checked\"";
-					}
-					else {
-						$checked = "";
-					}
-					echo '
 						<p>
-								<input type="checkbox" id="'.$row['name'].'" value="'.$row['id'].'" '.$checked.'/>
+								<input type="checkbox" id="'.$row['name'].'" value="'.$row['id'].'" />
 								<label for="'.$row['name'].'">'.$row['name'].'</label>
 						</p>
 					';
@@ -227,10 +203,42 @@ Class user {
 			}
 		}
 
+		public function fetchAll($t_id) {
+			try{
+				$query = $this->db->prepare("SELECT * FROM `task` WHERE `t_id` = :t_id");
+				$query->bindparam(":t_id",$t_id);
+				$query->execute();
+				$rows = $query->fetchAll(PDO::FETCH_ASSOC);
+				
+				$query = $this->db->prepare("SELECT `id`,`name` FROM `login` WHERE `role` = '0'");
+				$query->execute();
+				$names = $query->fetchAll(PDO::FETCH_ASSOC);
+				foreach($names as $n){
+					$names2[$n['id']]=$n['name'];
+				}
+				unset($n);
 
+
+
+				foreach($rows as $row){
+					
+					$checked = "checked = \"checked\"";
+					echo '
+						<p>
+								<input type="checkbox" id="'.$names2[$row['id']].'" value="'.$row['id'].'" '.$checked.'/>
+								<label for="'.$names2[$row['id']].'">'.$names2[$row['id']].'</label>
+						</p>
+					';
+				}
+
+				$user->fetchFree();
+			}
+			catch(PDOException $e){
+				// error in task fetching
+			}
+		}
 
 	}
-
 ?>
 
 
