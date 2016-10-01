@@ -141,7 +141,7 @@ Class user {
 		}
 	}
 
-	public function fetchHeadTask() {
+	public function fetchHeadTask($userid) {
 		try{
 			$query = $this->db->prepare("SELECT `id`,`name` FROM `login` WHERE `role` = '0'");
 			$query->execute();
@@ -152,7 +152,7 @@ Class user {
 			unset($n);
 
 			$query = $this->db->prepare("SELECT * FROM `task` WHERE `head_id` = :userid ORDER BY `completed` ASC, `updated` DESC");
-			$query->bindparam(":userid",$_SESSION['userid']);
+			$query->bindparam(":userid",$userid);
 			$query->execute();
 			$rows = $query->fetchAll();
 			$num = $query->rowCount();
@@ -252,6 +252,21 @@ Class user {
 				// error in task fetching
 			}
 		}
+
+		public function fetchAllTask() {
+
+			$query = $this->db->prepare("SELECT * FROM `login` WHERE `role` = '1'");
+			$query->execute();
+			$rows = $query->fetchAll(PDO::FETCH_ASSOC);
+
+			foreach($rows as $row){
+				$this->fetchHeadTask($row['id']);
+			}
+
+
+		}
+
+
 
 	}
 	?>
