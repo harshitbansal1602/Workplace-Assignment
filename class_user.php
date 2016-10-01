@@ -77,11 +77,19 @@ Class user {
 			$query3->bindparam(":des",$des);
 			$query3->bindparam(":h_id",$h_id);
 			$query3->bindparam(":updated",$time);
+			
 			foreach ($subhead as $s_id) {
 				$query3->bindparam(":s_id",$s_id);
 				$query3->execute();
+
+				/*$query4 = $this->db->prepare("UPDATE `login` SET `free`='0' WHERE `id` = :s_id");
+				$query4->bindparam(":s_id",$s_id);
+				$query4->execute();		*/		
+
+
 			}
 			unset($s_id);
+			
 			return "SUCCESS2";
 			
 		}else{
@@ -225,13 +233,13 @@ Class user {
 					$checked = "checked = \"checked\"";
 					echo '
 						<p>
-								<input type="checkbox" id="'.$names2[$row['id']].'" value="'.$row['id'].'" '.$checked.'/>
-								<label for="'.$names2[$row['id']].'">'.$names2[$row['id']].'</label>
+								<input type="checkbox" id="'.$names2[$row['sub_id']].'" value="'.$row['id'].'" '.$checked.'/>
+								<label for="'.$names2[$row['sub_id']].'">'.$names2[$row['sub_id']].'</label>
 						</p>
 					';
 				}
 
-				$user->fetchFree();
+				$this->fetchFree();
 			}
 			catch(PDOException $e){
 				// error in task fetching
