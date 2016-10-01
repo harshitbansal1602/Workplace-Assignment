@@ -56,6 +56,14 @@ Class user {
 			$query = $this->db->prepare("DELETE FROM `task` WHERE `t_id` = :t_id");
 			$query->bindparam(":t_id",$t_id);
 			$query->execute();
+
+			$query5 = $this->db->prepare("UPDATE `login` SET `free`='1' WHERE `id` = :s_id");
+			foreach ($subhead as $s_id) {
+				$query5->bindparam(":s_id",$s_id);
+				$query5->execute();
+			}
+			unset($s_id);
+
 		}else;
 
 		//Entering new entry
@@ -70,7 +78,7 @@ Class user {
 			}else;
 			$h_id = $_SESSION['userid'];			
 			date_default_timezone_set("Asia/Kolkata");
-			$time = date("d/m/y h:ia");
+			$time = date("y/m/d h:ia");
 			$query3 = $this->db->prepare("INSERT INTO `task` (`t_id`, `topic`, `des`, `sub_id`, `head_id`, `updated`) VALUES (:t_id, :sum, :des, :s_id, :h_id, :updated) ");
 			$query3->bindparam(":t_id",$t_id);
 			$query3->bindparam(":sum",$sum);
@@ -81,12 +89,13 @@ Class user {
 			foreach ($subhead as $s_id) {
 				$query3->bindparam(":s_id",$s_id);
 				$query3->execute();
+			}
+			unset($s_id);
 
-				/*$query4 = $this->db->prepare("UPDATE `login` SET `free`='0' WHERE `id` = :s_id");
+			$query4 = $this->db->prepare("UPDATE `login` SET `free`='0' WHERE `id` = :s_id");
+			foreach ($subhead as $s_id) {
 				$query4->bindparam(":s_id",$s_id);
-				$query4->execute();		*/		
-
-
+				$query4->execute();
 			}
 			unset($s_id);
 			
@@ -144,7 +153,7 @@ Class user {
 			}
 			unset($n);
 
-			$query = $this->db->prepare("SELECT * FROM `task` WHERE `head_id` = :userid");
+			$query = $this->db->prepare("SELECT * FROM `task` WHERE `head_id` = :userid ORDER BY `completed` ASC, `updated` DESC");
 			$query->bindparam(":userid",$_SESSION['userid']);
 			$query->execute();
 			$rows = $query->fetchAll();
@@ -174,11 +183,11 @@ Class user {
 								<div class="col s12">'.$rows[$key]['des'].'</div>
 							</div>
 							<div class="row">
-							<div class="col s12">
-								<a class="modal-trigger btn-flat trigger_et" href="#modal1">Edit Task</a>
-								<a class="btn-flat trigger_dt" href="#!">Delete Task</a>
+								<div class="col s12">
+									<a class="modal-trigger btn-flat trigger_et" href="#modal1">Edit Task</a>
+									<a class="btn-flat trigger_dt" href="#!">Delete Task</a>
+								</div>
 							</div>
-						</div>
 						</div>
 					</li>
 					';
@@ -199,10 +208,10 @@ Class user {
 				$rows = $query->fetchAll(PDO::FETCH_ASSOC);
 				foreach($rows as $row){
 					echo '
-						<p>
-								<input type="checkbox" id="'.$row['name'].'" value="'.$row['id'].'" />
-								<label for="'.$row['name'].'">'.$row['name'].'</label>
-						</p>
+					<p>
+						<input type="checkbox" id="'.$row['name'].'" value="'.$row['id'].'" />
+						<label for="'.$row['name'].'">'.$row['name'].'</label>
+					</p>
 					';
 				}
 			}
@@ -230,12 +239,11 @@ Class user {
 
 				foreach($rows as $row){
 					
-					$checked = "checked = \"checked\"";
 					echo '
-						<p>
-								<input type="checkbox" id="'.$names2[$row['sub_id']].'" value="'.$row['id'].'" '.$checked.'/>
-								<label for="'.$names2[$row['sub_id']].'">'.$names2[$row['sub_id']].'</label>
-						</p>
+					<p>
+						<input type="checkbox" id="'.$names2[$row['sub_id']].'" value="'.$row['sub_id'].'" checked disabled />
+						<label for="'.$names2[$row['sub_id']].'">'.$names2[$row['sub_id']].'</label>
+					</p>
 					';
 				}
 
@@ -247,6 +255,6 @@ Class user {
 		}
 
 	}
-?>
+	?>
 
 

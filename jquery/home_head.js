@@ -78,6 +78,8 @@ $(document).ready(function(){
 	$(document).on('click', '.trigger_dt', function(event) {
 		event.preventDefault();
 		t_id = $(this).parents('li').eq(0).attr('id');
+		t_id = t_id.slice(5);
+		t_id = parseInt(t_id);	//to convert string to number
 		alter_task(t_id,'delete');
 	});
 

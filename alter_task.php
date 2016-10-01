@@ -7,10 +7,10 @@ if( isset($_POST['task_id']) && isset($_POST['action']) && !empty($_POST['action
 		$result = $user->alterTask($t_id,$action,null,null,null);
 		//echo $result;
 	}elseif ($action == 'update' || $action == 'create') {
-		if( isset($_POST['userid']) && isset($_POST['userid']) &&
-			isset($_POST['task_sum']) && isset($_POST['task_sum']) &&
-			isset($_POST['task_des']) && isset($_POST['task_des']) &&
-			isset($_POST['subhead']) && isset($_POST['subhead'])  ){
+		if( isset($_POST['userid']) && !empty($_POST['userid']) &&
+			isset($_POST['task_sum']) && !empty($_POST['task_sum']) &&
+			isset($_POST['task_des']) && !empty($_POST['task_des']) &&
+			isset($_POST['subhead']) && !empty($_POST['subhead'])  ){
 
 			$subhead = $_POST['subhead'];
 			$sum = $_POST['task_sum'];
