@@ -29,18 +29,18 @@ if(!$user->isLoggedIn()){
 <body>
 	<header>
 		<div class="row">
-			<div class="col s4">Welcome</div>
-			<div class="col s2">
+			<div class="col s7 offset-s1" id="welcome">Welcome</div>
+			<div class="col s1">
 				<a id="my_task" href="#!">My Tasks</a>
 			</div>
-			<div class="col s2">
+			<div class="col s1">
 				<a id="all_task" href="#!">All Tasks</a>
 			</div>
-			<div class="col s2">
+			<div class="col s1">
 				<a class="modal-trigger" id="trigger_ct" href="#modal1">Create Task</a>
 			</div>
-			<div class="col s2">
-				<a href="logout.php">Logout</a>
+			<div class="col s1">
+				<a id="logout" href="logout.php">Logout</a>
 			</div>
 		</div>
 	</header>
@@ -48,7 +48,7 @@ if(!$user->isLoggedIn()){
 		<div class="container" >
 			<ul class="collapsible" id="task_list_head" data-collapsible="accordion">
 				<li>
-					<div class="collapsible-header">
+					<div class="collapsible-header" id="collapsible-header">
 						<div class="row">
 							<div class="col s5"><b>Task</b></div>
 							<div class="col s3"><b>Sub-Head(s) working on it</b></div>
@@ -62,8 +62,8 @@ if(!$user->isLoggedIn()){
 			</ul>
 		</div>
 	</main>
-	<footer style="text-align: center;">
-		Harshit Bansal &bull; Pradhumn Goyal
+	<footer>
+		<div id="footer_text">Harshit Bansal &bull; Pradhumn Goyal</div>
 	</footer>
 	
 	

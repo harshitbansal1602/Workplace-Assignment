@@ -243,7 +243,7 @@ Class user {
 					echo '
 					<p>
 						<input type="checkbox" id="'.$row['name'].'" value="'.$row['id'].'" />
-						<label for="'.$row['name'].'">'.$row['name'].'</label>
+						<label class="grey-text text-darken-4" for="'.$row['name'].'">'.$row['name'].'</label>
 					</p>
 					';
 				}
@@ -276,7 +276,7 @@ Class user {
 					echo '
 					<p>
 						<input type="checkbox" id="'.$names2[$row['id']].'" value="'.$row['id'].'" checked />
-						<label for="'.$names2[$row['id']].'">'.$names2[$row['id']].'</label>
+						<label class="grey-text text-darken-4" for="'.$names2[$row['id']].'">'.$names2[$row['id']].'</label>
 					</p>
 					';
 				}
@@ -298,7 +298,7 @@ Class user {
 			}
 			unset($n);
 
-			$query = $this->db->prepare("SELECT * FROM `task` ORDER BY `completed` ASC, `updated` DESC");
+			$query = $this->db->prepare("SELECT * FROM `task` ORDER BY `completed` DESC, `updated` DESC");
 			$query->bindparam(":userid",$userid);
 			$query->execute();
 			$rows = $query->fetchAll();
@@ -309,7 +309,15 @@ Class user {
 
 				$html .= '
 				<li id="task_'.$rows[$key]['t_id'].'">
-					<div class="collapsible-header">
+					<div class="collapsible-header ';
+
+					if($rows[$key]['completed'] !='Not completed.'){
+						$html .= 'completed';
+					}else{
+						$html .= 'uncompleted';
+					}
+
+					$html .= '">
 						<div class="row">
 							<div class="col s5">'.$rows[$key]['topic'].'</div>
 							<div class="col s3">'.$names2[$rows[$key]['sub_id']];

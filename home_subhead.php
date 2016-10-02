@@ -21,20 +21,20 @@ if(!$user->isLoggedIn()){
 	<link rel="shortcut icon" href="images/">
 
 	<!--CSS for this file-->
-	<link rel="stylesheet" href="css/home_subhead.css">
+	<link rel="stylesheet" href="css/home_head.css">
 
 </head>
 <body>
 	<header>
 		<div class="row">
-			<div class="col s6">Welcome</div>
-			<div class="col s2">
+			<div class="col s8 offset-s1" id="welcome" >Welcome</div>
+			<div class="col s1">
 				<a id="my_task" href="#!">My Tasks</a>
 			</div>
-			<div class="col s2">
+			<div class="col s1">
 				<a id="all_task" href="#!">All Tasks</a>
 			</div>
-			<div class="col s2">
+			<div class="col s1">
 				<a href="logout.php">Logout</a>
 			</div>
 		</div>
@@ -43,7 +43,7 @@ if(!$user->isLoggedIn()){
 		<div class="container" >
 			<ul class="collapsible" id="task_list_head" data-collapsible="accordion">
 				<li>
-					<div class="collapsible-header">
+					<div class="collapsible-header" id="collapsible-header">
 						<div class="row">
 							<div class="col s3"><b>Task</b></div>
 							<div class="col s2"><b>Task given by</b></div>

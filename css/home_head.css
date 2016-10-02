@@ -1,7 +1,65 @@
+header{
+	background-color: 	#3B5998;
+	margin-bottom: 55px;
+
+}
+header div{
+	font-size: 24px;
+	padding: 8px 0 ;
+	display: flex;
+	align-items: center;
+}
+#welcome{
+	font-size: 48px;
+	color: white;
+}
+
+
+
+body{
+	
+	background-color: #FFFFFF;
+	display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
+}
+
 .completed {
-	background: lightgreen;
+	background: #DFE3EE;
 }
 
 .uncompleted {
-	background: yellow;
+	background: #8B9DC3;
 }
+a{
+	color: #ffffff;
+}
+
+#error {
+	margin-top: 20px;
+	color:#DD4132;
+	font-size: 16px;
+}
+
+#collapsible-header {
+	font-size: 20px ;
+	line-height: 55px;
+	color: white;
+	background-color: #3B5998;
+}
+
+.collapsible-body {
+	background-color: #F7F7F7;
+	padding: 10px;
+}
+
+footer {
+	background-color: 	#3B5998;
+	padding: 20px;
+	text-align: center;
+	color: white;
+}
+
